@@ -44,3 +44,13 @@ $(function() {
   }
 });
 ```
+### Controlling the video
+```javascript
+...
+video.play();
+video.pause();
+video.mute();
+video.unmute();
+...
+```
+
