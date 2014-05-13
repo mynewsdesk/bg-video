@@ -7,7 +7,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/mynewsdesk/bg-video"
+    "url": "git@github.com:mynewsdesk/bg-video.git"
   },
   "dependencies": {
     "jquery": "latest"
