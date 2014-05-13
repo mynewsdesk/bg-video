@@ -1,0 +1,21 @@
+{
+  "name": "BgVideo",
+  "version": "0.0.1",
+  "description": "",
+  "main": "Gruntfile.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Emil Löfqiust",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-coffee": "~0.10.1",
+    "grunt-contrib-watch": "~0.5.3",
+    "coffee-script": "~1.7.1",
+    "grunt-contrib-uglify": "*"
+  }
+}

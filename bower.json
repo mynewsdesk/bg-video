@@ -1,0 +1,31 @@
+{
+  "name": "BgVideo",
+  "version": "0.0.1",
+  "main": "dist/bg_video.js",
+  "authors": [
+    "Emil Löfquist", "Emil Löfquist <lofquist@gmail.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "dependencies": {
+    "jquery": "latest"
+  },
+  "devDependencies": {
+    "coffee-script": "1.7.1"
+  },
+  "ignore": [
+    "example/",
+    "GruntFile.coffee",
+    "package.json",
+    "**/*.sass",
+    "**/*.coffee",
+  ],
+  "keywords": [
+    "video",
+    "fullscreen",
+    "background",
+    "html5"
+  ]
+}

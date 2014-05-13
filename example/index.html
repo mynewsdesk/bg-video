@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Background Fullscreen video</title>
+<style>
+  body {
+    color: #fff;
+    font-family: Helvetica;
+  }
+  .container {
+    width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 100px;
+  }
+  h1 {
+    font-size: 60px;
+    text-shadow: 1px 1px 1px #333;
+  }
+</style>
+</head>
+<body>
+<div id="bg_video">
+</div>
+<div class="container">
+  <h1>Fullscreen Background Video</h1>
+</div>
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../dist/bg_video.js"></script>
+<script>
+$(function() {
+    if($.supportsVideo()) {
+      window.vvv = new BgVideo($('#bg_video'),
+        {
+          sources: [
+            'http://techslides.com/demos/sample-videos/small.mp4',
+            'http://techslides.com/demos/sample-videos/small.webm',
+            'http://techslides.com/demos/sample-videos/small.ogv'
+          ]
+        }
+      );
+    }
+});
+</script>
+</body>
+</html>
