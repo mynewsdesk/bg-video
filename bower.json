@@ -1,6 +1,6 @@
 {
   "name": "BgVideo",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/bg_video.js",
   "authors": [
     "Emil Löfquist", "Emil Löfquist <lofquist@gmail.com>"
@@ -18,7 +18,7 @@
   "ignore": [
     "example/",
     "src/",
-    "GruntFile.coffee",
+    "Gruntfile.coffee",
     "package.json",
     "**/*.sass",
     "**/*.coffee"

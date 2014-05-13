@@ -15,7 +15,6 @@ class BgVideo
     @$elm = $elm
 
     @settings =
-      debug:      false
       sources:    []
       fallback:   true
 
