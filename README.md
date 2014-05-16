@@ -9,8 +9,8 @@ bower install bg-video
 ## Test for HTML5 video support
 
 ```javascript
-if($.supportsVideo()) { 
-  // initialize code 
+if($.supportsVideo()) {
+  // initialize code
 }
 ```
 
@@ -31,7 +31,10 @@ $(function() {
         'http://techslides.com/demos/sample-videos/small.mp4',
         'http://techslides.com/demos/sample-videos/small.webm',
         'http://techslides.com/demos/sample-videos/small.ogv'
-      ]
+      ],
+      cssPosition: 'absolute', // static|absolute|fixed
+      alignment: 'top left', // top left|top right|bottom left|bottom right
+      hideBodyScrollbars: true
     }, {
       autoplay:  'autoplay',
       controls:  false, // default: 'controls'
@@ -39,7 +42,7 @@ $(function() {
       muted:     'muted',
       poster:    null, // default: url to image
       preload:   'auto' // auto | metadata | none
-      } 
+      }
     );
   }
 });
