@@ -31,13 +31,15 @@
 <script>
 $(function() {
     if($.supportsVideo()) {
-      window.vvv = new BgVideo($('#bg_video'),
+      var video = new BgVideo($('#bg_video'),
         {
+          alignment: 'bottom right',
           sources: [
             'http://techslides.com/demos/sample-videos/small.mp4',
             'http://techslides.com/demos/sample-videos/small.webm',
             'http://techslides.com/demos/sample-videos/small.ogv'
-          ]
+          ],
+          cssPosition: 'fixed'
         }
       );
     }

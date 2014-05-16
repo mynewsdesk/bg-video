@@ -15,6 +15,9 @@ class BgVideo
 
     @settings =
       sources:    []
+      cssPosition: 'absolute' # static|fixed|absolute
+      alignment: 'top left' # top left|top right|bottom left|bottom right
+      hideBodyScrollbars: true
 
     @attributes =
       autoplay:  'autoplay'
@@ -26,32 +29,34 @@ class BgVideo
 
     @settings = $.extend @settings, options
     @attributes = $.extend @attributes, nativeAttributes
+    if @settings.hideBodyScrollbars then $('body').css 'overflow', 'hidden' # hide scrollbars
     @$video = @createVideoTag()
     $elm.append @$video
 
-  play: ->
-    @$video.get(0).play()
-  pause: ->
-    @$video.get(0).pause()
-  mute: ->
-    @$video.prop 'muted', true
-  unmute: ->
-    @$video.prop 'muted', false
+  play: ->    @$video.get(0).play()
+  pause: ->   @$video.get(0).pause()
+  mute: ->    @$video.prop 'muted', true
+  unmute: ->  @$video.prop 'muted', false
+
+  alignmentPosition: ->
+    switch @settings.alignment
+      when 'top right' then { top: 0, right: 0 }
+      when 'bottom left' then { bottom: 0, left: 0 }
+      when 'bottom right' then { bottom: 0, right: 0 }
+      else { top: 0, left: 0 }
 
   createVideoTag: ->
     $video = $('<video />')
-    $('body').css 'overflow', 'hidden' # hide scrollbars
-
-    $video.css
-      position:   'absolute'
-      top:        0
-      left:       0
+    css =
+      position:   @settings.cssPosition
       minWidth:   '100%'
       minHeight:  '100%'
       width:      'auto'
       height:     'auto'
       zIndex:     '-1000'
       overflow:   'hidden'
+
+    $video.css $.extend(css, @alignmentPosition())
 
     $.each @attributes, (key, val) -> unless val is null then $video.attr(key, val)
     @appendSource($video, source) for source in @settings.sources

@@ -17,11 +17,11 @@ BgVideo = (function() {
   };
 
   function BgVideo($elm, options, nativeAttributes) {
-    this.$elm = $elm;
     this.settings = {
-      debug: false,
       sources: [],
-      fallback: true
+      cssPosition: 'absolute',
+      alignment: 'top left',
+      hideBodyScrollsbars: true
     };
     this.attributes = {
       autoplay: 'autoplay',
@@ -33,8 +33,11 @@ BgVideo = (function() {
     };
     this.settings = $.extend(this.settings, options);
     this.attributes = $.extend(this.attributes, nativeAttributes);
+    if (this.settings.hideBodyScrollsbars) {
+      $('body').css('overflow', 'hidden');
+    }
     this.$video = this.createVideoTag();
-    $(this.$elm).replaceWith(this.$video);
+    $elm.append(this.$video);
   }
 
   BgVideo.prototype.play = function() {
@@ -53,21 +56,44 @@ BgVideo = (function() {
     return this.$video.prop('muted', false);
   };
 
+  BgVideo.prototype.alignmentPosition = function() {
+    switch (this.settings.alignment) {
+      case 'top right':
+        return {
+          top: 0,
+          right: 0
+        };
+      case 'bottom left':
+        return {
+          bottom: 0,
+          left: 0
+        };
+      case 'bottom right':
+        return {
+          bottom: 0,
+          right: 0
+        };
+      default:
+        return {
+          top: 0,
+          left: 0
+        };
+    }
+  };
+
   BgVideo.prototype.createVideoTag = function() {
-    var $video, source, _i, _len, _ref;
+    var $video, css, source, _i, _len, _ref;
     $video = $('<video />');
-    $('body').css('overflow', 'hidden');
-    $video.css({
-      position: 'absolute',
-      top: 0,
-      left: 0,
+    css = {
+      position: this.settings.cssPosition,
       minWidth: '100%',
       minHeight: '100%',
       width: 'auto',
       height: 'auto',
       zIndex: '-1000',
       overflow: 'hidden'
-    });
+    };
+    $video.css($.extend(css, this.alignmentPosition()));
     $.each(this.attributes, function(key, val) {
       if (val !== null) {
         return $video.attr(key, val);
