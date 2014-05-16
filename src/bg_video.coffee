@@ -27,7 +27,7 @@ class BgVideo
     @settings = $.extend @settings, options
     @attributes = $.extend @attributes, nativeAttributes
     @$video = @createVideoTag()
-    $(@$elm).replaceWith @$video
+    $elm.append @$video
 
   play: ->
     @$video.get(0).play()
