@@ -12,11 +12,9 @@ class BgVideo
   }
 
   constructor: ($elm, options, nativeAttributes) ->
-    @$elm = $elm
 
     @settings =
       sources:    []
-      fallback:   true
 
     @attributes =
       autoplay:  'autoplay'
