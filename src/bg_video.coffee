@@ -13,6 +13,10 @@ class BgVideo
 
   constructor: ($elm, options, nativeAttributes) ->
 
+    @$elm = $elm
+
+    @$detachedElm = null
+
     @settings =
       sources:    []
       cssPosition: 'absolute' # static|fixed|absolute
@@ -69,5 +73,19 @@ class BgVideo
   detectMimeType: (source) ->
     ext = source.split('.').pop().toLowerCase()
     mimeTypes[ext]
+
+  destroy: ->
+    @pause()
+    @$video.remove()
+
+  detach: ->
+    @pause()
+    @$detachedElm = @$video.detach()
+
+  reAttach: ->
+    if @$detachedElm?
+      @$elm.append @$video
+      @play()
+      @$detachedElm = null
 
 root.BgVideo = BgVideo

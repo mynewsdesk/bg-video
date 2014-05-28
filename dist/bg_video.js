@@ -17,11 +17,13 @@ BgVideo = (function() {
   };
 
   function BgVideo($elm, options, nativeAttributes) {
+    this.$elm = $elm;
+    this.$detachedElm = null;
     this.settings = {
       sources: [],
       cssPosition: 'absolute',
       alignment: 'top left',
-      hideBodyScrollsbars: true
+      hideBodyScrollbars: true
     };
     this.attributes = {
       autoplay: 'autoplay',
@@ -33,7 +35,7 @@ BgVideo = (function() {
     };
     this.settings = $.extend(this.settings, options);
     this.attributes = $.extend(this.attributes, nativeAttributes);
-    if (this.settings.hideBodyScrollsbars) {
+    if (this.settings.hideBodyScrollbars) {
       $('body').css('overflow', 'hidden');
     }
     this.$video = this.createVideoTag();
@@ -117,6 +119,24 @@ BgVideo = (function() {
     var ext;
     ext = source.split('.').pop().toLowerCase();
     return mimeTypes[ext];
+  };
+
+  BgVideo.prototype.destroy = function() {
+    this.pause();
+    return this.$video.remove();
+  };
+
+  BgVideo.prototype.detach = function() {
+    this.pause();
+    return this.$detachedElm = this.$video.detach();
+  };
+
+  BgVideo.prototype.reAttach = function() {
+    if (this.$detachedElm != null) {
+      this.$elm.append(this.$video);
+      this.play();
+      return this.$detachedElm = null;
+    }
   };
 
   return BgVideo;
