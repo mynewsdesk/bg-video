@@ -22,6 +22,7 @@ class BgVideo
       cssPosition: 'absolute' # static|fixed|absolute
       alignment: 'top left' # top left|top right|bottom left|bottom right
       hideBodyScrollbars: true
+      resizeWithWindow: true
 
     @attributes =
       autoplay:  'autoplay'
@@ -37,10 +38,28 @@ class BgVideo
     @$video = @createVideoTag()
     $elm.append @$video
 
+    if @settings.resizeWithWindow
+      $(window).on 'resize', => @setVideoDimensions(@$video)
+
+
   play: ->    @$video.get(0).play()
   pause: ->   @$video.get(0).pause()
   mute: ->    @$video.prop 'muted', true
   unmute: ->  @$video.prop 'muted', false
+
+  setVideoDimensions: ($video) ->
+    ar = $(window).width() / $(window).height()
+
+    css =
+      position:   @settings.cssPosition
+      minWidth:   '100%'
+      minHeight:  '100%'
+      width:      -> if ar < 1.77 then 'auto' else '100%'
+      height:     -> if ar < 1.77 then '100%' else 'auto'
+      zIndex:     '-1000'
+      overflow:   'hidden'
+
+    $video.css $.extend(css, @alignmentPosition())
 
   alignmentPosition: ->
     switch @settings.alignment
@@ -51,16 +70,7 @@ class BgVideo
 
   createVideoTag: ->
     $video = $('<video />')
-    css =
-      position:   @settings.cssPosition
-      minWidth:   '100%'
-      minHeight:  '100%'
-      width:      'auto'
-      height:     'auto'
-      zIndex:     '-1000'
-      overflow:   'hidden'
-
-    $video.css $.extend(css, @alignmentPosition())
+    @setVideoDimensions($video)
 
     $.each @attributes, (key, val) -> unless val is null then $video.attr(key, val)
     @appendSource($video, source) for source in @settings.sources

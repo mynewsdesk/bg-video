@@ -23,7 +23,8 @@ BgVideo = (function() {
       sources: [],
       cssPosition: 'absolute',
       alignment: 'top left',
-      hideBodyScrollbars: true
+      hideBodyScrollbars: true,
+      resizeWithWindow: true
     };
     this.attributes = {
       autoplay: 'autoplay',
@@ -40,6 +41,13 @@ BgVideo = (function() {
     }
     this.$video = this.createVideoTag();
     $elm.append(this.$video);
+    if (this.settings.resizeWithWindow) {
+      $(window).on('resize', (function(_this) {
+        return function() {
+          return _this.setVideoDimensions(_this.$video);
+        };
+      })(this));
+    }
   }
 
   BgVideo.prototype.play = function() {
@@ -56,6 +64,33 @@ BgVideo = (function() {
 
   BgVideo.prototype.unmute = function() {
     return this.$video.prop('muted', false);
+  };
+
+  BgVideo.prototype.setVideoDimensions = function($video) {
+    var ar, css;
+    ar = $(window).width() / $(window).height();
+    css = {
+      position: this.settings.cssPosition,
+      minWidth: '100%',
+      minHeight: '100%',
+      width: function() {
+        if (ar < 1.77) {
+          return 'auto';
+        } else {
+          return '100%';
+        }
+      },
+      height: function() {
+        if (ar < 1.77) {
+          return '100%';
+        } else {
+          return 'auto';
+        }
+      },
+      zIndex: '-1000',
+      overflow: 'hidden'
+    };
+    return $video.css($.extend(css, this.alignmentPosition()));
   };
 
   BgVideo.prototype.alignmentPosition = function() {
@@ -84,18 +119,9 @@ BgVideo = (function() {
   };
 
   BgVideo.prototype.createVideoTag = function() {
-    var $video, css, source, _i, _len, _ref;
+    var $video, source, _i, _len, _ref;
     $video = $('<video />');
-    css = {
-      position: this.settings.cssPosition,
-      minWidth: '100%',
-      minHeight: '100%',
-      width: 'auto',
-      height: 'auto',
-      zIndex: '-1000',
-      overflow: 'hidden'
-    };
-    $video.css($.extend(css, this.alignmentPosition()));
+    this.setVideoDimensions($video);
     $.each(this.attributes, function(key, val) {
       if (val !== null) {
         return $video.attr(key, val);
