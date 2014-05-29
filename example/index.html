@@ -9,7 +9,7 @@
     font-family: Helvetica;
   }
   .container {
-    width: 800px;
+    max-width: 800px;
     margin: 0 auto;
     text-align: center;
     padding-top: 100px;
@@ -25,6 +25,9 @@
 </div>
 <div class="container">
   <h1>Fullscreen Background Video</h1>
+  <div>
+    <button type="button" id="toggle-play" data-playing="true">Play/Pause</button>
+  </div>
 </div>
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 <script src="../dist/bg_video.js"></script>
@@ -42,6 +45,19 @@ $(function() {
           cssPosition: 'fixed'
         }
       );
+      $('#toggle-play').click(function() {
+        if($(this).data('playing')) {
+          video.pause();
+          $(this).data('playing', false);
+        }
+        else {
+          video.play();
+          $(this).data('playing', true);
+        }
+      }).focus();
+    }
+    else {
+      alert("Your browser does not support HTML5 video");
     }
 });
 </script>

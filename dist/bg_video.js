@@ -1,3 +1,9 @@
+
+/*
+ * BgVideo v0.0.8 - Fullscreen HTML5 background video
+ * Author: Emil Löfquist @ Mynewsdesk
+ * GitHub: https://github.com/mynewsdesk/bg-video
+ */
 var BgVideo, root;
 
 root = typeof exports !== "undefined" && exports !== null ? exports : this;
@@ -81,10 +87,10 @@ BgVideo = (function() {
         }
       },
       height: function() {
-        if (ar < 1.77) {
-          return '100%';
-        } else {
+        if (ar > 1.77) {
           return 'auto';
+        } else {
+          return '100%';
         }
       },
       zIndex: '-1000',
@@ -160,7 +166,6 @@ BgVideo = (function() {
   BgVideo.prototype.reAttach = function() {
     if (this.$detachedElm != null) {
       this.$elm.append(this.$video);
-      this.play();
       return this.$detachedElm = null;
     }
   };

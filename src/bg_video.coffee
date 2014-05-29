@@ -1,3 +1,8 @@
+###
+# BgVideo v0.0.8 - Fullscreen HTML5 background video
+# Author: Emil Löfquist @ Mynewsdesk
+# GitHub: https://github.com/mynewsdesk/bg-video
+###
 root = exports ? this
 
 $.supportsVideo = -> !!document.createElement("video").canPlayType
@@ -5,9 +10,9 @@ $.supportsVideo = -> !!document.createElement("video").canPlayType
 class BgVideo
 
   mimeTypes = {
-    'mp4': 'video/mp4'
-    'm4v': 'video/mp4'
-    'ogv': 'video/ogg'
+    'mp4':  'video/mp4'
+    'm4v':  'video/mp4'
+    'ogv':  'video/ogg'
     'webm': 'video/webm'
   }
 
@@ -18,11 +23,11 @@ class BgVideo
     @$detachedElm = null
 
     @settings =
-      sources:    []
-      cssPosition: 'absolute' # static|fixed|absolute
-      alignment: 'top left' # top left|top right|bottom left|bottom right
+      sources:            []
+      cssPosition:        'absolute' # static|fixed|absolute
+      alignment:          'top left' # top left|top right|bottom left|bottom right
       hideBodyScrollbars: true
-      resizeWithWindow: true
+      resizeWithWindow:   true
 
     @attributes =
       autoplay:  'autoplay'
@@ -41,7 +46,7 @@ class BgVideo
     if @settings.resizeWithWindow
       $(window).on 'resize', => @setVideoDimensions(@$video)
 
-
+  # Video controls
   play: ->    @$video.get(0).play()
   pause: ->   @$video.get(0).pause()
   mute: ->    @$video.prop 'muted', true
@@ -55,7 +60,7 @@ class BgVideo
       minWidth:   '100%'
       minHeight:  '100%'
       width:      -> if ar < 1.77 then 'auto' else '100%'
-      height:     -> if ar < 1.77 then '100%' else 'auto'
+      height:     -> if ar > 1.77 then 'auto' else '100%'
       zIndex:     '-1000'
       overflow:   'hidden'
 
@@ -63,10 +68,10 @@ class BgVideo
 
   alignmentPosition: ->
     switch @settings.alignment
-      when 'top right' then { top: 0, right: 0 }
-      when 'bottom left' then { bottom: 0, left: 0 }
-      when 'bottom right' then { bottom: 0, right: 0 }
-      else { top: 0, left: 0 }
+      when 'top right'    then top: 0, right: 0
+      when 'bottom left'  then bottom: 0, left: 0
+      when 'bottom right' then bottom: 0, right: 0
+      else top: 0, left: 0
 
   createVideoTag: ->
     $video = $('<video />')
@@ -95,7 +100,6 @@ class BgVideo
   reAttach: ->
     if @$detachedElm?
       @$elm.append @$video
-      @play()
       @$detachedElm = null
 
 root.BgVideo = BgVideo
