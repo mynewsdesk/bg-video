@@ -34,7 +34,8 @@ $(function() {
       ],
       cssPosition: 'absolute', // static|absolute|fixed
       alignment: 'top left', // top left|top right|bottom left|bottom right
-      hideBodyScrollbars: true
+      hideBodyScrollbars: true, // set body to overflow:hidden
+      resizeWithWindow: true // resize video on window.resize
     }, {
       autoplay:  'autoplay',
       controls:  false, // default: 'controls'
