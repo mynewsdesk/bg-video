@@ -35,12 +35,13 @@ $(function() {
       cssPosition: 'absolute', // static|absolute|fixed
       alignment: 'top left', // top left|top right|bottom left|bottom right
       hideBodyScrollbars: true, // set body to overflow:hidden
-      resizeWithWindow: true // resize video on window.resize
+      resizeWithWindow: true, // resize video on window.resize
+      attachImmediately: true // attach video immediately to the DOM
     }, {
-      autoplay:  'autoplay',
-      controls:  false, // default: 'controls'
-      loop:      'loop',
-      muted:     'muted',
+      autoplay:  true,
+      controls:  false,
+      loop:      true,
+      muted:     true,
       poster:    null, // default: url to image
       preload:   'auto' // auto | metadata | none
       }
