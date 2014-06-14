@@ -30,13 +30,14 @@ BgVideo = (function() {
       cssPosition: 'absolute',
       alignment: 'top left',
       hideBodyScrollbars: true,
-      resizeWithWindow: true
+      resizeWithWindow: true,
+      attachImmediately: true
     };
     this.attributes = {
-      autoplay: 'autoplay',
+      autoplay: true,
       controls: false,
-      loop: 'loop',
-      muted: 'muted',
+      loop: true,
+      muted: true,
       poster: null,
       preload: 'auto'
     };
@@ -46,7 +47,9 @@ BgVideo = (function() {
       $('body').css('overflow', 'hidden');
     }
     this.$video = this.createVideoTag();
-    $elm.append(this.$video);
+    if (this.settings.attachImmediately) {
+      $elm.append(this.$video);
+    }
     if (this.settings.resizeWithWindow) {
       $(window).on('resize', (function(_this) {
         return function() {
@@ -129,8 +132,14 @@ BgVideo = (function() {
     $video = $('<video />');
     this.setVideoDimensions($video);
     $.each(this.attributes, function(key, val) {
-      if (val !== null) {
-        return $video.attr(key, val);
+      if (typeof val === 'boolean') {
+        if (val === true) {
+          return $video.prop(key, true);
+        }
+      } else {
+        if (val !== null) {
+          return $video.prop(key, val);
+        }
       }
     });
     _ref = this.settings.sources;
@@ -163,11 +172,10 @@ BgVideo = (function() {
     return this.$detachedElm = this.$video.detach();
   };
 
-  BgVideo.prototype.reAttach = function() {
-    if (this.$detachedElm != null) {
-      this.$elm.append(this.$video);
-      return this.$detachedElm = null;
-    }
+  BgVideo.prototype.attach = function() {
+    this.$elm.append(this.$video);
+    this.$detachedElm = null;
+    return this.settings.attachImmediately = false;
   };
 
   return BgVideo;

@@ -19,7 +19,6 @@ class BgVideo
   constructor: ($elm, options, nativeAttributes) ->
 
     @$elm = $elm
-
     @$detachedElm = null
 
     @settings =
@@ -28,12 +27,13 @@ class BgVideo
       alignment:          'top left' # top left|top right|bottom left|bottom right
       hideBodyScrollbars: true
       resizeWithWindow:   true
+      attachImmediately:  true
 
     @attributes =
-      autoplay:  'autoplay'
-      controls:  false # default: 'controls'
-      loop:      'loop'
-      muted:     'muted'
+      autoplay:  true
+      controls:  false
+      loop:      true
+      muted:     true
       poster:    null # default: url to image
       preload:   'auto' # auto | metadata | none
 
@@ -41,7 +41,7 @@ class BgVideo
     @attributes = $.extend @attributes, nativeAttributes
     if @settings.hideBodyScrollbars then $('body').css 'overflow', 'hidden' # hide scrollbars
     @$video = @createVideoTag()
-    $elm.append @$video
+    if @settings.attachImmediately then $elm.append @$video
 
     if @settings.resizeWithWindow
       $(window).on 'resize', => @setVideoDimensions(@$video)
@@ -77,7 +77,11 @@ class BgVideo
     $video = $('<video />')
     @setVideoDimensions($video)
 
-    $.each @attributes, (key, val) -> unless val is null then $video.attr(key, val)
+    $.each @attributes, (key, val) ->
+      if typeof val is 'boolean'
+        $video.prop(key, true) if val is true
+      else
+        $video.prop(key, val) unless val is null
     @appendSource($video, source) for source in @settings.sources
     $video
 
@@ -97,9 +101,9 @@ class BgVideo
     @pause()
     @$detachedElm = @$video.detach()
 
-  reAttach: ->
-    if @$detachedElm?
-      @$elm.append @$video
-      @$detachedElm = null
+  attach: ->
+    @$elm.append @$video
+    @$detachedElm = null
+    @settings.attachImmediately = false
 
 root.BgVideo = BgVideo
