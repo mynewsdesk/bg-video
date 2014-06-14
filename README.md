@@ -58,6 +58,6 @@ video.mute();
 video.unmute();
 video.destroy();
 video.detach();
-video.reAttach();
+video.attach();
 ...
 ```
