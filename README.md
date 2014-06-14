@@ -55,7 +55,7 @@ video.play();
 video.pause();
 video.mute();
 video.unmute();
-vide.destroy();
+video.destroy();
 video.detach();
 video.reAttach();
 ...
