@@ -49,7 +49,7 @@ $(function() {
   }
 });
 ```
-### Methods
+### Exposed methods
 ```javascript
 ...
 video.play();
@@ -61,3 +61,18 @@ video.detach();
 video.attach();
 ...
 ```
+### Working with events
+Attach event listeners to the $video element by using jQuery's on-method.
+
+```javascript
+...
+video.$video.on('canplay', function() {
+  console.log("Video can start playing");
+});
+...
+```
+
+### Useful resources
+https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_HTML5_audio_and_video
+http://www.w3schools.com/tags/ref_av_dom.asp
+https://developer.apple.com/library/safari/documentation/audiovideo/conceptual/using_html5_audio_video/controllingmediawithjavascript/controllingmediawithjavascript.html
