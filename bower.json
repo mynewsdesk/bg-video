@@ -1,6 +1,6 @@
 {
   "name": "BgVideo",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "main": "dist/bg_video.js",
   "authors": [
     "Emil Löfquist", "Emil Löfquist <lofquist@gmail.com>"
@@ -10,7 +10,7 @@
     "url": "git@github.com:mynewsdesk/bg-video.git"
   },
   "dependencies": {
-    "jquery": "latest"
+    "jquery": ">=1.11.1"
   },
   "devDependencies": {
     "coffee-script": "1.7.1"
