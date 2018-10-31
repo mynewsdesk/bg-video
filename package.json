@@ -12,10 +12,10 @@
   "author": "Emil Löfqiust",
   "license": "ISC",
   "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-coffee": "~0.10.1",
-    "grunt-contrib-watch": "~0.5.3",
-    "coffee-script": "~1.7.1",
+    "grunt": "~1.0.3",
+    "grunt-contrib-coffee": "~2.0.0",
+    "grunt-contrib-watch": "~1.1.0",
+    "coffee-script": "~1.12.7",
     "grunt-contrib-uglify": "*"
   }
 }
