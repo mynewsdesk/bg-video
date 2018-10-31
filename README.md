@@ -1,5 +1,7 @@
 # BgVideo
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/mynewsdesk/bg-video.svg)](https://greenkeeper.io/)
+
 Display HTML5 video backgrounds in fullscreen.
 
 ## Install via Bower
